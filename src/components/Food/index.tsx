@@ -4,8 +4,29 @@ import { FiEdit3, FiTrash } from 'react-icons/fi';
 import { Container } from './styles';
 import api from '../../services/api';
 
+interface FoodObject {
+    id: string,
+    available: boolean,
+    name: string,
+    image: string,
+    description: string,
+    price: string,
+  }
 
-const Food = props => {
+interface FoodProps {
+  food: {
+    id: string,
+    available: boolean,
+    name: string,
+    image: string,
+    description: string,
+    price: string,
+  },
+  handleDelete: (id: number) => void,
+  handleEditFood: (food: FoodObject) => void,
+}
+
+const Food: React.FC<FoodProps> = props => {
   const { food, food: {available}, handleDelete, handleEditFood } = props;
   const [isAvailable, setIsAvailable] = useState(available)
 
@@ -49,7 +70,7 @@ const Food = props => {
           <button
             type="button"
             className="icon"
-            onClick={() => handleDelete(food.id)}
+            onClick={() => handleDelete(Number(food.id))}
             data-testid={`remove-food-${food.id}`}
           >
             <FiTrash size={20} />
