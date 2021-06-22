@@ -9,11 +9,17 @@ import { useField } from '@unform/core';
 
 import { Container } from './styles';
 
-const Input = ({ name, icon: Icon, ...rest }) => {
-  const inputRef = useRef(null);
+interface InputProps {
+  name: string,
+  placeholder: string,
+  icon: React.ElementType,
+}
+
+const Input: React.FC<InputProps> = ({ name, icon: Icon, placeholder }) => {
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const [isFocused, setIsFocused] = useState(false);
-  const [isFilled, setIsFilled] = useState(false);
+  const [isFilled, setIsFilled] = useState<boolean>(false);
 
   const { fieldName, defaultValue, registerField } = useField(name);
 
@@ -44,7 +50,7 @@ const Input = ({ name, icon: Icon, ...rest }) => {
         onBlur={handleInputBlur}
         defaultValue={defaultValue}
         ref={inputRef}
-        {...rest}
+        placeholder={placeholder}
       />
     </Container>
   );
