@@ -5,11 +5,26 @@ import { Form } from './styles';
 import Modal from '../Modal';
 import Input from '../Input';
 
-const ModalEditFood = props => {
+interface ModalEditFoodProps {
+  isOpen: boolean,
+  setIsOpen: () => void,
+  editingFood: () => void,
+  handleUpdateFood: (data: DataProps) => void,
+}
+
+interface DataProps {
+  description: string,
+  image: string,
+  name: string,
+  price: string,
+}
+
+const ModalEditFood: React.FC<ModalEditFoodProps> = props => {
   const { isOpen, setIsOpen, editingFood, handleUpdateFood } = props;
   const formRef = useRef(null);
 
-  const handleSubmit = async (data) => {
+  const handleSubmit = async (data: DataProps) => {
+    console.log('verificando o que temos em data', data)
     handleUpdateFood(data);
     setIsOpen();
   };
@@ -18,7 +33,7 @@ const ModalEditFood = props => {
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
       <Form ref={formRef} onSubmit={handleSubmit} initialData={editingFood}>
         <h1>Editar Prato</h1>
-        <Input name="image" placeholder="Cole o link aqui" />
+        <Input  name="image" placeholder="Cole o link aqui" />
 
         <Input name="name" placeholder="Ex: Moda Italiana" />
         <Input name="price" placeholder="Ex: 19.90" />

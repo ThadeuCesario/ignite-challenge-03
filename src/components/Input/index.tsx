@@ -12,7 +12,7 @@ import { Container } from './styles';
 interface InputProps {
   name: string,
   placeholder: string,
-  icon: React.ElementType,
+  icon?: React.ElementType,
 }
 
 const Input: React.FC<InputProps> = ({ name, icon: Icon, placeholder }) => {
