@@ -5,7 +5,7 @@ import { Container } from './styles';
 import api from '../../services/api';
 
 interface FoodObject {
-    id: string,
+    id: number,
     available: boolean,
     name: string,
     image: string,
@@ -15,7 +15,7 @@ interface FoodObject {
 
 interface FoodProps {
   food: {
-    id: string,
+    id: number,
     available: boolean,
     name: string,
     image: string,

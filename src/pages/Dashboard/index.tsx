@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import Header from '../../components/Header';
 import api from '../../services/api';
 import Food from '../../components/Food';
@@ -7,19 +6,31 @@ import ModalAddFood from '../../components/ModalAddFood';
 import ModalEditFood from '../../components/ModalEditFood';
 import { FoodsContainer } from './styles';
 
-const Dashboard = props => {
-  const [foods, setFoods] = useState([]);
-  const [editingFood, setEditingFood] = useState({});
+interface FoodProps {
+  id: number,
+  description: string,
+  image: string,
+  name: string,
+  price: string,
+  available: boolean,
+}
+
+const Dashboard = () => {
+  const [foods, setFoods] = useState<FoodProps[]>([]);
+  const [editingFood, setEditingFood] = useState<FoodProps>({} as FoodProps);
   const [modalOpen, setModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(async () => {
+  const loadProducts = async () => {
     const response = await api.get('/foods');
     setFoods(response.data);
-  }, []);
+  }
 
-  const handleAddFood = async food => {
+  useEffect(() => {
+    loadProducts();
+  }, [])
+
+  const handleAddFood = async (food: FoodProps) => {
     try {
       const response = await api.post('/foods', {
         ...food,
@@ -32,7 +43,7 @@ const Dashboard = props => {
     }
   }
 
-  const handleUpdateFood = async food => {
+  const handleUpdateFood = async (food: FoodProps) => {
     try {
       const foodUpdated = await api.put(
         `/foods/${editingFood.id}`,
@@ -49,7 +60,7 @@ const Dashboard = props => {
     }
   }
 
-  const handleDeleteFood = async id => {
+  const handleDeleteFood = async (id: number) => {
     await api.delete(`/foods/${id}`);
 
     const foodsFiltered = foods.filter(food => food.id !== id);
@@ -62,10 +73,11 @@ const Dashboard = props => {
   }
 
   const toggleEditModal = () => {
-    setEditingFood(!editModalOpen);
+    console.log('editModalOpen', editModalOpen);
+    setEditModalOpen(!editModalOpen);
   }
 
-  const handleEditFood = food => {
+  const handleEditFood = (food: FoodProps) => {
     setEditingFood(food);
     setEditModalOpen(true);
   }
@@ -87,7 +99,7 @@ const Dashboard = props => {
 
       <FoodsContainer data-testid="foods-list">
         {foods &&
-          foods.map(food => (
+          foods.map((food: FoodProps) => (
             <Food
               key={food.id}
               food={food}

@@ -4,19 +4,19 @@ import { FiCheckSquare } from 'react-icons/fi';
 import { Form } from './styles';
 import Modal from '../Modal';
 import Input from '../Input';
-
-interface ModalEditFoodProps {
-  isOpen: boolean,
-  setIsOpen: () => void,
-  editingFood: () => void,
-  handleUpdateFood: (data: DataProps) => void,
-}
-
 interface DataProps {
+  id: number,
   description: string,
   image: string,
   name: string,
   price: string,
+  available: boolean,
+}
+interface ModalEditFoodProps {
+  isOpen: boolean,
+  setIsOpen: () => void,
+  editingFood: DataProps,
+  handleUpdateFood: (data: DataProps) => void,
 }
 
 const ModalEditFood: React.FC<ModalEditFoodProps> = props => {
