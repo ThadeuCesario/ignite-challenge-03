@@ -12,7 +12,6 @@ const Modal: React.FC<ModalProps> = props => {
   const [modalStatus, setModalStatus] = useState(isOpen);
 
   useEffect(() => {
-    console.log(props);
     setModalStatus(isOpen);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen])

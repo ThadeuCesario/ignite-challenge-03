@@ -24,7 +24,6 @@ const ModalEditFood: React.FC<ModalEditFoodProps> = props => {
   const formRef = useRef(null);
 
   const handleSubmit = async (data: DataProps) => {
-    console.log('verificando o que temos em data', data)
     handleUpdateFood(data);
     setIsOpen();
   };

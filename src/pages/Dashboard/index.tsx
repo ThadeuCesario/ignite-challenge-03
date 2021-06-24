@@ -73,7 +73,6 @@ const Dashboard = () => {
   }
 
   const toggleEditModal = () => {
-    console.log('editModalOpen', editModalOpen);
     setEditModalOpen(!editModalOpen);
   }
 
